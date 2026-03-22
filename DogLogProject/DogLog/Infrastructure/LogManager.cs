@@ -22,10 +22,27 @@ namespace DogLog.Infrastructure
 
         public List<ActivityLog> ReadAllLogs()
         {
-            return File.ReadAllLines(_filePath)
+            return [.. File.ReadAllLines(_filePath)
                 .Where(line => !string.IsNullOrWhiteSpace(line))
-                .Select(ActivityLog.FromFileString)
-                .ToList();
+                .Select(ActivityLog.FromFileString)];
+        }
+
+        public List<ActivityLog> GetLatestActivitiesByType()
+        {
+            return [.. ReadAllLogs()
+                .GroupBy(log => log.Type)
+                .Select(group => group
+                    .OrderByDescending(l => l.Timestamp)
+                    .First()
+                )];
+        }
+
+        public ActivityLog? GetLatestLogByType(string type)
+        {
+            return ReadAllLogs()
+                .Where(l => l.Type == type)
+                .OrderByDescending(l => l.Timestamp)
+                .FirstOrDefault();
         }
     }
 }

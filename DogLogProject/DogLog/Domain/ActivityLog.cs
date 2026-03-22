@@ -30,6 +30,20 @@ namespace DogLog.Domain
                 parts.Length > 2 ? parts[2].Trim() : ""
             );
         }
+
+        public string ToFriendlyString(DateTime? now = null)
+        {
+            var currentTime = now ?? DateTime.Now;
+            var timeDiff = currentTime - Timestamp;
+
+            double hours = timeDiff.TotalHours;
+
+            string timeAgo = hours < 1
+                ? $"{timeDiff.TotalMinutes:F1} minutes ago"
+                : $"{hours:F1} hours ago";
+
+            return $">> Last {Type} by {PerformedBy} on {Timestamp} ({timeAgo})";
+        }
     }
 }
 

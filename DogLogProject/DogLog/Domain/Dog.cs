@@ -1,19 +1,12 @@
-using Spectre.Console;
-
 namespace DogLog.Domain
 {
-    public class Dog
+    public class Dog(string name)
     {
-        public string Name { get; }
-        public DateTime LastFeedTime { get; private set; }
-        public DateTime LastWalkTime { get; private set; }
+        public string Name { get; } = name;
+        public DateTime LastFeedTime { get; private set; } = DateTime.Now;
+        public DateTime LastWalkTime { get; private set; } = DateTime.Now;
 
         private const int FeedingWarningHours = 4;
-
-        public Dog(string name)
-        {
-            Name = name;
-        }
 
         public void Feed(DateTime time) => LastFeedTime = time;
         public void Walk(DateTime time) => LastWalkTime = time;
