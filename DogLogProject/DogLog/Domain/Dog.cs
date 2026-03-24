@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace DogLog.Domain
 {
     public class Dog(string name)
@@ -13,10 +11,13 @@ namespace DogLog.Domain
         public void Feed(DateTime time) => LastFeedTime = time;
         public void Walk(DateTime time) => LastWalkTime = time;
 
-        public bool NeedsFood()
+        public bool NeedsFood(DateTime? now = null)
         {
-            TimeSpan diff = DateTime.Now - LastFeedTime;
-            return diff.TotalHours > FeedingWarningHours;
+            var currentTime = now ?? DateTime.Now;
+            var timeDiff = currentTime - LastFeedTime;
+            if (LastFeedTime == default) return true;
+
+            return timeDiff.TotalHours > FeedingWarningHours;
         }
     }
 }

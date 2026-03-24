@@ -17,7 +17,7 @@ namespace DogLog.Domain
 
         public string ToFileString()
         {
-            return $"{Type} | {Timestamp} | {Details} | By: {PerformedBy}";
+            return $"{Type} | {Timestamp:O} | {Details} | By: {PerformedBy}";
         }
 
         public static ActivityLog FromFileString(string line)
@@ -25,7 +25,7 @@ namespace DogLog.Domain
             var parts = line.Split('|');
             return new ActivityLog(
                 parts[0].Trim(),
-                DateTime.Parse(parts[1]),
+                DateTime.Parse(parts[1], null, System.Globalization.DateTimeStyles.RoundtripKind),
                 parts[3].Replace("By:", "").Trim(),
                 parts.Length > 2 ? parts[2].Trim() : ""
             );
