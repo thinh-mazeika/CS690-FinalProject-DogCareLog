@@ -37,12 +37,20 @@ namespace DogLog.Infrastructure
                 )];
         }
 
-        public ActivityLog? GetLatestLogByType(string type)
+        public void RestoreDogState(Dog dog)
         {
-            return ReadAllLogs()
-                .Where(l => l.Type == type)
-                .OrderByDescending(l => l.Timestamp)
-                .FirstOrDefault();
+            var logs = GetLatestActivitiesByType();
+            foreach (var log in logs)
+            {
+                if (log.Type == "Fed")
+                {
+                    dog.Feed(log.Timestamp);
+                }
+                if (log.Type == "Walked")
+                {
+                    dog.Walk(log.Timestamp);
+                }
+            }
         }
     }
 }

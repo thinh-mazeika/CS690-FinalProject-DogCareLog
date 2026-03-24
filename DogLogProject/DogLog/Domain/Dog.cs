@@ -1,10 +1,12 @@
+using System.Runtime.CompilerServices;
+
 namespace DogLog.Domain
 {
     public class Dog(string name)
     {
         public string Name { get; } = name;
-        public DateTime LastFeedTime { get; private set; } = DateTime.Now;
-        public DateTime LastWalkTime { get; private set; } = DateTime.Now;
+        public DateTime LastFeedTime { get; private set; }
+        public DateTime LastWalkTime { get; private set; }
 
         private const int FeedingWarningHours = 4;
 

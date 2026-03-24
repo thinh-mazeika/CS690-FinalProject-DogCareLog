@@ -8,8 +8,11 @@ class Program
 {
     static void Main()
     {
-        var dog = new Dog("Alex");
+        var dog = new Dog("Max");
         var logManager = new LogManager("doglog.txt");
+
+        logManager.RestoreDogState(dog);
+
         var menu = new AppMenu(dog, logManager);
 
         menu.Run();
