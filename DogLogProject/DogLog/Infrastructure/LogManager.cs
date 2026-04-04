@@ -37,6 +37,7 @@ namespace DogLog.Infrastructure
                 )];
         }
 
+        // always sync log.txt
         public void RestoreDogState(Dog dog)
         {
             var logs = GetLatestActivitiesByType();

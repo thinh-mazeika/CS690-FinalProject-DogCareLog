@@ -49,6 +49,7 @@ namespace DogLog.ConsoleUI
             }
         }
 
+        // helper function to set user
         private static User SelectUser(string action)
         {
             var name = AnsiConsole.Prompt(
@@ -66,7 +67,7 @@ namespace DogLog.ConsoleUI
                 string message = $"Dog was last fed at {_dog.LastFeedTime}. Too soon!";
                 string safeMessage = Markup.Escape(message);
                 AnsiConsole.MarkupLine($"\n[red]WARNING: [/]{safeMessage}");
-                return;
+                return; // early return to prevent user over-feeding
             }
 
             var user = SelectUser("fed");
@@ -130,6 +131,7 @@ namespace DogLog.ConsoleUI
 
             foreach (var log in logs)
             {
+                // highlight the first row in the table
                 if (index == 0)
                 {
                     table.AddRow($"[bold yellow]{log.Type}[/]", $"[bold yellow]{log.Timestamp.ToString()}[/]",
@@ -160,6 +162,7 @@ namespace DogLog.ConsoleUI
 
         private void ShowLogs(int take = int.MaxValue)
         {
+            // sort most recent activity at the top
             var logs = _logManager.ReadAllLogs().OrderByDescending(line => line.Timestamp).Take(take).ToList();
 
             if (logs.Count == 0)

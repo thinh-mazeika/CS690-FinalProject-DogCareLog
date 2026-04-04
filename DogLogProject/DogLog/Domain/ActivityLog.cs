@@ -25,7 +25,7 @@ namespace DogLog.Domain
             var parts = line.Split('|');
             return new ActivityLog(
                 parts[0].Trim(),
-                DateTime.Parse(parts[1], null, System.Globalization.DateTimeStyles.RoundtripKind),
+                DateTime.Parse(parts[1], null, System.Globalization.DateTimeStyles.RoundtripKind), // need this option to compare timestamp correctly
                 parts[3].Replace("By:", "").Trim(),
                 parts.Length > 2 ? parts[2].Trim() : ""
             );
@@ -38,6 +38,7 @@ namespace DogLog.Domain
 
             double hours = timeDiff.TotalHours;
 
+            // friendly, human-readable format
             string timeAgo = hours < 1
                 ? $"{timeDiff.TotalMinutes:F1} minutes ago"
                 : $"{hours:F1} hours ago";

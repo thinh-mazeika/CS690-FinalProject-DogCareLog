@@ -5,6 +5,7 @@ namespace DogLog.Tests.Infrastructure;
 
 public class LogManagerTests
 {
+    // independent test file path, not messed with doglog.txt
     private static string GetTempFilePath()
     {
         return Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".txt");
